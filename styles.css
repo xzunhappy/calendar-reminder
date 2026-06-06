@@ -1,0 +1,363 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: #f6f7f9;
+  color: #1d2430;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f6f7f9;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(100%, 560px);
+  margin: 0 auto;
+  padding: 20px 16px 36px;
+}
+
+.view {
+  min-height: calc(100vh - 56px);
+}
+
+.topbar,
+.home-topbar,
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.home-topbar {
+  min-height: 44px;
+}
+
+.today-text {
+  color: #687385;
+  font-size: 14px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: #687385;
+  font-size: 13px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+.form-panel,
+.notice-panel,
+.sync-panel,
+.list-panel {
+  margin-top: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e8ee;
+  border-radius: 8px;
+}
+
+.form-panel,
+.notice-panel,
+.sync-panel,
+.list-panel {
+  padding: 16px;
+}
+
+.notice-panel,
+.sync-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.notice-panel p,
+.sync-panel p {
+  margin-top: 6px;
+  color: #687385;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sync-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.notice-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.calendar-hero {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  min-height: calc(100vh - 120px);
+  text-align: center;
+}
+
+.calendar-art {
+  position: relative;
+  width: min(78vw, 330px);
+  aspect-ratio: 0.82;
+  border: 1px solid #d8dee8;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 22px 60px rgba(31, 41, 55, 0.12);
+}
+
+.calendar-rings {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 88px;
+}
+
+.calendar-rings span {
+  width: 18px;
+  height: 44px;
+  border-radius: 999px;
+  background: #1d4ed8;
+}
+
+.calendar-header {
+  height: 28%;
+  background: #2563eb;
+}
+
+.calendar-body {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  height: 72%;
+  padding: 18px;
+}
+
+.calendar-body strong {
+  font-size: clamp(86px, 26vw, 138px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.calendar-body span {
+  margin-top: 10px;
+  color: #687385;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.calendar-hero h1 {
+  margin-top: 28px;
+  font-size: 24px;
+}
+
+.calendar-hero p {
+  width: min(100%, 320px);
+  margin-top: 10px;
+  color: #687385;
+  line-height: 1.6;
+}
+
+form {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: #4d5968;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d7dce4;
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #ffffff;
+  color: #1d2430;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.checkbox-label {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-label input {
+  width: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.primary-button,
+.icon-button,
+.ghost-button,
+.text-button,
+.delete-button {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  background: #ffffff;
+  border: 1px solid #e1e6ef;
+  color: #1d2430;
+  font-size: 22px;
+  line-height: 1;
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.08);
+}
+
+.primary-button {
+  padding: 12px 14px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.ghost-button {
+  padding: 9px 12px;
+  background: #eef3ff;
+  color: #1f55d6;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.text-button {
+  background: transparent;
+  color: #687385;
+}
+
+.event-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.event-item {
+  display: grid;
+  grid-template-columns: 66px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #e7eaf0;
+  border-radius: 8px;
+}
+
+.event-date {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.event-date strong {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.event-date span {
+  font-size: 12px;
+}
+
+.event-body {
+  min-width: 0;
+}
+
+.event-body h3 {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.event-body p {
+  margin-top: 4px;
+  color: #687385;
+  font-size: 13px;
+}
+
+.note {
+  overflow-wrap: anywhere;
+}
+
+.delete-button {
+  padding: 8px 10px;
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.empty-state {
+  padding: 20px 0 6px;
+  color: #687385;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .app-shell {
+    padding-top: 14px;
+  }
+
+  .event-item {
+    grid-template-columns: 58px 1fr;
+  }
+
+  .delete-button {
+    grid-column: 2;
+    justify-self: start;
+  }
+}

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>日历提醒</title>
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="日历提醒" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="homeView" class="view">
+        <header class="home-topbar">
+          <button id="openManageButton" class="icon-button" type="button" aria-label="打开提醒管理">☰</button>
+          <p id="todayTitle" class="today-text">今天</p>
+        </header>
+
+        <section class="calendar-hero" aria-live="polite">
+          <div class="calendar-art">
+            <div class="calendar-rings" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="calendar-header"></div>
+            <div class="calendar-body">
+              <strong id="heroNumber">--</strong>
+              <span id="heroUnit">天后</span>
+            </div>
+          </div>
+          <h1 id="heroTitle">还没有提醒</h1>
+          <p id="heroDetail">点击左上角按钮添加农历生日或重要事项。</p>
+        </section>
+      </section>
+
+      <section id="manageView" class="view hidden">
+        <header class="topbar">
+          <button id="backHomeButton" class="ghost-button" type="button">返回</button>
+          <button id="seedButton" class="ghost-button" type="button">示例</button>
+        </header>
+
+        <section class="notice-panel">
+          <div>
+            <h2>系统通知</h2>
+            <p id="notificationStatus">正在检查通知支持...</p>
+          </div>
+          <div class="notice-actions">
+            <button id="enableNotificationsButton" class="primary-button" type="button">开启通知</button>
+            <button id="testNotificationButton" class="ghost-button" type="button">测试通知</button>
+          </div>
+        </section>
+
+        <section class="sync-panel">
+          <div>
+            <h2>云同步</h2>
+            <p id="syncStatus">未连接云同步，本机数据仍会保存在当前浏览器里。</p>
+          </div>
+
+          <div class="sync-fields">
+            <label>
+              Supabase URL
+              <input id="supabaseUrlInput" type="url" placeholder="https://你的项目.supabase.co" />
+            </label>
+            <label>
+              Supabase 发布密钥 / 匿名密钥
+              <input id="supabaseAnonKeyInput" type="password" placeholder="sb_publishable... 或 anon public key" />
+            </label>
+            <label>
+              登录邮箱
+              <input id="syncEmailInput" type="email" placeholder="你的邮箱" />
+            </label>
+          </div>
+
+          <div class="notice-actions">
+            <button id="saveCloudConfigButton" class="ghost-button" type="button">保存配置</button>
+            <button id="sendLoginLinkButton" class="primary-button" type="button">发送登录邮件</button>
+            <button id="syncNowButton" class="ghost-button" type="button">立即同步</button>
+            <button id="logoutButton" class="ghost-button" type="button">退出登录</button>
+          </div>
+        </section>
+
+        <section class="form-panel">
+          <h2>添加提醒</h2>
+          <form id="eventForm">
+            <label>
+              名称
+              <input id="titleInput" type="text" placeholder="例如：妈妈生日、体检" required />
+            </label>
+
+            <label>
+              类型
+              <select id="typeInput">
+                <option value="lunarBirthday">农历生日</option>
+                <option value="solar">公历事项</option>
+              </select>
+            </label>
+
+            <div id="lunarFields" class="field-grid">
+              <label>
+                农历月
+                <input id="lunarMonthInput" type="number" min="1" max="12" value="1" />
+              </label>
+              <label>
+                农历日
+                <input id="lunarDayInput" type="number" min="1" max="30" value="1" />
+              </label>
+              <label class="checkbox-label">
+                <input id="leapMonthInput" type="checkbox" />
+                闰月
+              </label>
+            </div>
+
+            <label id="solarDateField" class="hidden">
+              公历日期
+              <input id="solarDateInput" type="date" />
+            </label>
+
+            <label>
+              提前提醒
+              <select id="remindInput">
+                <option value="0">当天</option>
+                <option value="1">提前 1 天</option>
+                <option value="3">提前 3 天</option>
+                <option value="7">提前 7 天</option>
+                <option value="14">提前 14 天</option>
+              </select>
+            </label>
+
+            <label>
+              备注
+              <textarea id="noteInput" rows="2" placeholder="可以写礼物、地点或注意事项"></textarea>
+            </label>
+
+            <button class="primary-button" type="submit">保存提醒</button>
+          </form>
+        </section>
+
+        <section class="list-panel">
+          <div class="section-title">
+            <h2>最近事件</h2>
+            <button id="clearButton" class="text-button" type="button">清空</button>
+          </div>
+          <div id="eventList" class="event-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <template id="eventTemplate">
+      <article class="event-item">
+        <div class="event-date">
+          <strong data-days></strong>
+          <span>天后</span>
+        </div>
+        <div class="event-body">
+          <h3 data-title></h3>
+          <p data-date></p>
+          <p data-note class="note"></p>
+        </div>
+        <button data-delete class="delete-button" type="button" aria-label="删除提醒">删除</button>
+      </article>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

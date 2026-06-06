@@ -2,6 +2,8 @@ const STORAGE_KEY = "calendar-reminder-events";
 const NOTIFIED_KEY = "calendar-reminder-notified";
 const CLOUD_CONFIG_KEY = "calendar-reminder-cloud-config";
 const DELETED_EVENTS_KEY = "calendar-reminder-deleted-events";
+const DEFAULT_SUPABASE_URL = "https://vhpjntkoxrndgwfnafhg.supabase.co";
+const DEFAULT_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_9JObgHt2dd4AQ9RDvET-Xg_J3hH3C-w";
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 const form = document.querySelector("#eventForm");
@@ -25,6 +27,7 @@ const syncStatus = document.querySelector("#syncStatus");
 const supabaseUrlInput = document.querySelector("#supabaseUrlInput");
 const supabaseAnonKeyInput = document.querySelector("#supabaseAnonKeyInput");
 const syncEmailInput = document.querySelector("#syncEmailInput");
+const useDefaultCloudButton = document.querySelector("#useDefaultCloudButton");
 const saveCloudConfigButton = document.querySelector("#saveCloudConfigButton");
 const sendLoginLinkButton = document.querySelector("#sendLoginLinkButton");
 const syncNowButton = document.querySelector("#syncNowButton");
@@ -456,6 +459,14 @@ async function handleSaveCloudConfig() {
   await initCloudSync();
 }
 
+async function useDefaultCloudConfig() {
+  supabaseUrlInput.value = DEFAULT_SUPABASE_URL;
+  supabaseAnonKeyInput.value = DEFAULT_SUPABASE_PUBLISHABLE_KEY;
+  saveCloudConfig();
+  updateSyncStatus("已填入正确的 Supabase 配置。请填写邮箱，然后发送登录邮件。");
+  await initCloudSync();
+}
+
 async function sendLoginLink() {
   saveCloudConfig();
   if (!cloudConfig.email) {
@@ -642,6 +653,7 @@ openManageButton.addEventListener("click", showManage);
 backHomeButton.addEventListener("click", showHome);
 enableNotificationsButton.addEventListener("click", requestNotificationPermission);
 testNotificationButton.addEventListener("click", sendTestNotification);
+useDefaultCloudButton.addEventListener("click", useDefaultCloudConfig);
 saveCloudConfigButton.addEventListener("click", handleSaveCloudConfig);
 sendLoginLinkButton.addEventListener("click", sendLoginLink);
 syncNowButton.addEventListener("click", syncNow);
